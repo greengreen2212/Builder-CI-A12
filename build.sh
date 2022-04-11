@@ -17,13 +17,13 @@
 #
 
 # User
-GIT_USER="GeoPD"
+GIT_USER="greengreen2212"
 
 # Email
-GIT_EMAIL="geoemmanuelpd2001@gmail.com"
+GIT_EMAIL="greenhumam@protonmail.com"
 
 # Local manifest
-LOCAL_MANIFEST=https://${TOKEN}@github.com/geopd/local_manifests
+LOCAL_MANIFEST=https://${TOKEN}@github.com/greengreen2212/local_manifest
 
 # ROM Manifest and Branch
 rom() {
@@ -31,6 +31,8 @@ rom() {
 		"AEX-12") MANIFEST=https://github.com/AospExtended/manifest.git BRANCH=12.x
 		;;
 		"Crdroid-12") MANIFEST=https://github.com/crdroidandroid/android.git BRANCH=12.0
+		;;
+		"lineage-19.1") MANIFEST=https://github.com/LineageOS/android BRANCH=lineage-19.1
 		;;
 		"Evox-12") MANIFEST=https://github.com/Evolution-X/manifest.git BRANCH=snow
 		;;
@@ -47,6 +49,8 @@ build_command() {
 		;;
 		"Crdroid-12") lunch lineage_sakura-user && m bacon -j20
 		;;
+		"lineage-19.1") lunch lineage_beryllium-userdebug && mka bacon -j20
+		;;
 		"Evox-12") lunch evolution_sakura-user && m evolution -j20
 		;;
 		*) echo "Build commands need to be added!"
@@ -58,16 +62,13 @@ build_command() {
 # Export tree paths
 tree_path() {
 	# Device,vendor & kernel Tree paths
-	DEVICE_TREE=device/xiaomi/sakura
+	DEVICE_TREE=device/xiaomi/beryllium
+	COMMON_TREE=device/xiaomi/sdm845-common
 	VENDOR_TREE=vendor/xiaomi
-	KERNEL_TREE=kernel/xiaomi/msm8953
+	KERNEL_TREE=kernel/xiaomi/sdm845
 }
 
-# Clone needed misc scripts and ssh priv keys
-clone_file() {
-	rclone copy brrbrr:scripts/setup_script.sh /tmp/rom
-	rclone copy brrbrr:ssh/ssh_ci /tmp/rom
-}
+
 
 # Setup build dir
 build_dir() {
@@ -79,27 +80,16 @@ build_dir() {
 git_setup() {
 	git config --global user.name $GIT_USER
 	git config --global user.email $GIT_EMAIL
-
-	# Establish Git cookies
-	echo "${GIT_COOKIES}" > ~/git_cookies.sh
-	bash ~/git_cookies.sh
 }
 
-# SSH configuration using priv key
-ssh_authenticate() {
-	sudo chmod 0600 /tmp/rom/ssh_ci
-	sudo mkdir ~/.ssh && sudo chmod 0700 ~/.ssh
-	eval `ssh-agent -s` && ssh-add /tmp/rom/ssh_ci
-	ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-}
+
 
 # Repo sync and additional configurations
 build_configuration() {
 	repo init --depth=1 --no-repo-verify -u $MANIFEST  -b $BRANCH -g default,-mips,-darwin,-notdefault
-	git clone $LOCAL_MANIFEST -b $NAME .repo/local_manifests
+	git clone $LOCAL_MANIFEST -b lin1 .repo/local_manifests
 	repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j13
-        source setup_script.sh
-	source build/envsetup.sh
+        source build/envsetup.sh
 }
 
 # Export time, time format for telegram messages
@@ -114,7 +104,7 @@ time_diff() {
 # Branch name & Head commit sha for ease of tracking
 commit_sha() {
 	tree_path
-	for repo in ${DEVICE_TREE} ${VENDOR_TREE} ${KERNEL_TREE}
+	for repo in ${DEVICE_TREE} ${COMMON_TREE} ${VENDOR_TREE} ${KERNEL_TREE} 
 	do
 		printf "[$(echo $repo | cut -d'/' -f1 )/$(git -C ./$repo/.git rev-parse --short=10 HEAD)]"
 	done
@@ -187,7 +177,7 @@ compiled_zip() {
 # Post Build finished with Time,duration,md5,size&Tdrive link OR post build_error&trimmed build.log in TG
 telegram_post(){
 	if [ -f $(pwd)/out/target/product/${T_DEVICE}/${ZIPNAME} ]; then
-		rclone copy ${ZIP} brrbrr:rom -P
+		rclone copy ${ZIP} rom:rom -P
 		DWD=${TDRIVE}${ZIPNAME}
 		telegram_post_build
 	else
