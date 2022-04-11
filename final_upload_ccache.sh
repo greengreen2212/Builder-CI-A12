@@ -25,7 +25,7 @@ compiled_zip() {
 # Final ccache upload
 ccache_upload_final () {
 	time tar "-I zstd -1 -T16" -cf $1.tar.zst $1
-	rclone copy --drive-chunk-size 256M --stats 1s $1.tar.zst brrbrr:$1/$NAME -P
+	rclone copy --drive-chunk-size 256M --stats 1s $1.tar.zst rom:$1/$NAME -P
 }
 
 # Let session sleep on error for debug
