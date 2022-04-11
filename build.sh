@@ -192,8 +192,6 @@ telegram_post(){
 compile_moments() {
 	build_dir
 	git_setup
-	clone_file
-	ssh_authenticate
 	time_sec SYNC_START
 	rom
 	build_configuration
