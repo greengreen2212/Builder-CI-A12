@@ -5,7 +5,7 @@ task:
   container:
     dockerfile: Dockerfile
     cpu: 6
-    memory: 28G
+    memory: 24G
 
   env:
     CIRRUS_WORKING_DIR: "/tmp/ci"
