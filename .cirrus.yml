@@ -18,12 +18,12 @@ task:
     T_DEVICE: beryllium
 
   download_cc_background_script:
-    - bash download_ccache.sh
+    - ./download_ccache.sh
   upload_cc_background_script:
-    - bash upload_ccache.sh
+    - ./upload_ccache.sh
   retry_cc_background_script:
-    - bash retry_ccache.sh
+    - ./retry_ccache.sh
   build_script:
-    - bash build.sh
+    - ./build.sh
   final_upload_cc_script:
-    - bash final_upload_ccache.sh
+    - ./final_upload_ccache.sh
