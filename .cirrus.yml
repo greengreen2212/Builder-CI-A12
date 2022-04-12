@@ -3,9 +3,9 @@ task:
   name: Builds
   timeout_in: 120m
   container:
-    dockerfile: Dockerfile
-    cpu: 6
-    memory: 24G
+    image: apon77/aosp:cirrus
+    cpu: 8
+    memory: 32G
 
   env:
     CIRRUS_WORKING_DIR: "/tmp/ci"
