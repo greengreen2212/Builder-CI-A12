@@ -49,7 +49,7 @@ build_command() {
 		;;
 		"Crdroid-12") lunch lineage_sakura-user && m bacon -j20
 		;;
-		"lineage-19.1") lunch lineage_beryllium-userdebug && mka bacon -j40
+		"lineage-19.1")  mka bacon -j40
 		;;
 		"Evox-12") lunch evolution_sakura-user && m evolution -j20
 		;;
@@ -89,7 +89,6 @@ build_configuration() {
 	repo init --depth=1 --no-repo-verify -u $MANIFEST  -b $BRANCH -g default,-mips,-darwin,-notdefault
 	git clone $LOCAL_MANIFEST -b lin1 .repo/local_manifests
 	repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j30
-        source build/envsetup.sh
 }
 
 # Export time, time format for telegram messages
@@ -112,6 +111,8 @@ commit_sha() {
 
 # Setup ccache
 ccache_configuration() {
+        . build/envsetup.sh
+        lunch lineage_beryllium-userdebug
 	export CCACHE_DIR=/tmp/ccache
 	export CCACHE_EXEC=$(which ccache)
 	export USE_CCACHE=1
