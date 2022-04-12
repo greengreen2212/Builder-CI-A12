@@ -4,7 +4,7 @@ task:
   timeout_in: 120m
   container:
     dockerfile: Dockerfile
-    cpu: 12
+    cpu: 10
     memory: 60G
 
   env:
