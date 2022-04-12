@@ -3,7 +3,7 @@ task:
   name: Builds
   timeout_in: 120m
   container:
-    image: apon77/aosp:cirrus
+    dockerfile: Dockerfile
     cpu: 8
     memory: 32G
 
