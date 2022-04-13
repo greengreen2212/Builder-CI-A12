@@ -1,11 +1,11 @@
-FROM ubuntu:hirsute
+FROM ubuntu:latest
 LABEL maintainer="GeoPD <geoemmanuelpd2001@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /tmp
 
 RUN apt-get -yqq update \
-    && apt-get install --no-install-recommends -yqq git \
+    && apt-get install --no-install-recommends -yqq git locales \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* \
     && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && /usr/sbin/locale-gen \
     && TZ=Asia/Kolkata \
