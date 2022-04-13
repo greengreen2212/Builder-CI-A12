@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:hirsute
 LABEL maintainer="GeoPD <geoemmanuelpd2001@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -13,13 +13,26 @@ RUN apt-get -yqq update \
     && TZ=Asia/Kolkata \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+RUN git clone https://github.com/akhilnarang/scripts bscripts \
+    && cd bscripts \
+    && bash setup/android_build_env.sh \ 
+    && cd ..
+    
 RUN git clone https://github.com/mirror/make \
     && cd make && ./bootstrap && ./configure && make CFLAGS="-O3 -Wno-error" \
     && sudo install ./make /usr/bin/make
 
+RUN git clone https://github.com/ninja-build/ninja.git \
+    && cd ninja && git reset --hard f404f00 && ./configure.py --bootstrap \
+    && sudo install ./ninja /usr/bin/ninja
+
 RUN git clone https://github.com/google/kati.git \
     && cd kati && git reset --hard ac01665 && make ckati \
     && sudo install ./ckati /usr/bin/ckati
+
+RUN git clone https://github.com/google/nsjail.git \
+    && cd nsjail && git reset --hard e678c25 && make nsjail \
+    && sudo install ./nsjail /usr/bin/nsjail
 
 RUN axel -a -n 10 https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz \
     && tar xvzf zstd-1.5.2.tar.gz && cd zstd-1.5.2 \
