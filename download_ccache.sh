@@ -19,7 +19,8 @@
 ccache_download () {
 	mkdir -p ~/.config/rclone
 	echo "$DRIVE" > ~/.config/rclone/rclone.conf
-	rclone copy rom:ccache/$NAME/ccache.tar.zst /tmp -P
+	sleep 4m
+        rclone copy rom:ccache/$NAME/ccache.tar.zst /tmp -P
 	tar -xaf ccache.tar.zst
 	rm -rf ccache.tar.zst
 }
