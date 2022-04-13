@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /tmp
 
 RUN apt-get -yqq update \
-    && apt-get install --no-install-recommends -yqq apt-utils ca-certificates git locales \
+    && apt-get install --no-install-recommends -yqq apt-utils ca-certificates sudo git locales \
     && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* \
     && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && /usr/sbin/locale-gen \
     && TZ=Asia/Kolkata \
