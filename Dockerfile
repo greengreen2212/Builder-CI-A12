@@ -13,7 +13,7 @@ RUN apt-get -yqq update \
 
 RUN git clone https://github.com/akhilnarang/scripts bscripts \
     && cd bscripts \
-    && bash setup/android_build_env.sh \ 
+    && sudo bash setup/android_build_env.sh \ 
     && cd ..
     
 RUN axel -a -n 10 https://github.com/facebook/zstd/releases/download/v1.5.2/zstd-1.5.2.tar.gz \
