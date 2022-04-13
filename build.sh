@@ -114,12 +114,13 @@ ccache_configuration() {
         . build/envsetup.sh
         lunch lineage_beryllium-userdebug
 	export CCACHE_DIR=/tmp/ccache
-	export CCACHE_EXEC=$(which ccache)
+	export CCACHE_EXEC=/usr/bin/ccache
 	export USE_CCACHE=1
 	export CCACHE_COMPRESS=true
 	export CCACHE_COMPRESSLEVEL=1
 	export CCACHE_LIMIT_MULTIPLE=0.9
 	export CCACHE_MAXSIZE=50G
+        export LC_ALL=C 
 	ccache -z
 }
 
