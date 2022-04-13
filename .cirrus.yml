@@ -1,7 +1,7 @@
 task:
 
   name: Builds
-  timeout_in: 180m
+  timeout_in: 120m
   container:
     dockerfile: Dockerfile
     cpu: 8
