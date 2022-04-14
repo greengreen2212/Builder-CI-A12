@@ -1,4 +1,4 @@
-FROM ubuntu:hirsute
+FROM ubuntu:focal
 LABEL maintainer="GeoPD <geoemmanuelpd2001@gmail.com>"
 ENV DEBIAN_FRONTEND noninteractive
 
