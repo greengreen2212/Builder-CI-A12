@@ -3,7 +3,7 @@ task:
   name: Builds
   timeout_in: 120m
   container:
-    dockerfile: Dockerfile
+    image: greengreen2212/ubuntu:16
     cpu: 8
     memory: 32G
 
