@@ -1,7 +1,7 @@
 task:
 
   name: Builds
-  timeout_in: 120m
+  timeout_in: 240m
   container:
     image: greengreen2212/ubuntu:16
     cpu: 8
