@@ -88,7 +88,7 @@ git_setup() {
 build_configuration() {
 	repo init --depth=1 --no-repo-verify -u $MANIFEST  -b $BRANCH -g default,-mips,-darwin,-notdefault
 	git clone $LOCAL_MANIFEST -b lin1 .repo/local_manifests
-	repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j30
+	repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 }
 
 # Export time, time format for telegram messages
