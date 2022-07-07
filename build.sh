@@ -49,7 +49,7 @@ build_command() {
 		;;
 		"Crdroid-12") lunch lineage_sakura-user && m bacon -j20
 		;;
-		"lineage-19.1") mka bacon -j40
+		"lineage-19.1") make bacon
 		;;
 		"Evox-12") lunch evolution_sakura-user && m evolution -j20
 		;;
