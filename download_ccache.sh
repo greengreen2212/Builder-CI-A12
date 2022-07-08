@@ -23,6 +23,8 @@ ccache_download () {
 	tar -xaf ccache.tar.zst
 	rm -rf ccache.tar.zst
         echo "remanants of CCACHE is removed"
+        export CCACHE_DIR=/tmp/ccache
+        ccache -s
 }
 
 cd /tmp
