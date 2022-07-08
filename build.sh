@@ -113,15 +113,18 @@ commit_sha() {
 ccache_configuration() {
         . build/envsetup.sh
         lunch lineage_beryllium-userdebug
-	export CCACHE_DIR=/tmp/ccache
-	export CCACHE_EXEC=$(which ccache)
-	export USE_CCACHE=1
-	export CCACHE_COMPRESS=true
-	export CCACHE_COMPRESSLEVEL=1
-	export CCACHE_LIMIT_MULTIPLE=0.9
-	export CCACHE_MAXSIZE=50G
-        export LC_ALL=C 
-	ccache -z
+	export PATH="/usr/lib/ccache:$PATH"
+        export CCACHE_DIR=/tmp/ccache
+        export CCACHE_EXEC=/usr/bin/ccache
+        export USE_CCACHE=1
+        export CCACHE_DEPEND=true
+        export CCACHE_FILECLONE=true
+        export CCACHE_LIMIT_MULTIPLE=0.9
+        export CCACHE_NOCOMPRESS=true
+        export CCACHE_NOHASHDIR=1
+        which ccache
+        ccache -M 100
+        ccache -z
 }
 
 # Setup TG message and build posts
