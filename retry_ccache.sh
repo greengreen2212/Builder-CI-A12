@@ -25,7 +25,7 @@ compiled_zip() {
 # Retry the ccache fill for 99-100% hit rate
 retry_ccache () {
 	export CCACHE_DIR=/tmp/ccache
-	export CCACHE_EXEC=$(which ccache)
+	export CCACHE_EXEC=/usr/bin/ccache
 	hit_rate=$(ccache -s | awk '/hit rate/ {print $4}' | cut -d'.' -f1)
 	if [ $hit_rate -lt 80 ]; then
 		git clone https://${TOKEN}@github.com/greengreen2212/Builder-CI-A12 cirrus && cd $_
