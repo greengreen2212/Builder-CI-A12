@@ -44,19 +44,12 @@ rom() {
 
 # Build command for rom
 build_command() {
-	case "${NAME}" in
-		"AEX-12") lunch aosp_sakura-user && m aex -j20
-		;;
-		"Crdroid-12") lunch lineage_sakura-user && m bacon -j20
-		;;
-		"lineage-19.1") make bacon
-		;;
-		"Evox-12") lunch evolution_sakura-user && m evolution -j20
-		;;
-		*) echo "Build commands need to be added!"
-		exit 1
-		;;
-	esac
+	make bacon
+        until [ $? == 0 ] ;
+        do
+           sleep 10
+           make bacon 
+        done
 }
 
 # Export tree paths
