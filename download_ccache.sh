@@ -22,6 +22,7 @@ ccache_download () {
 	rclone copy rom:ccache/$NAME/ccache.tar.zst /tmp -P
 	tar -xaf ccache.tar.zst
 	rm -rf ccache.tar.zst
+        echo "remanants of CCACHE is removed"
 }
 
 cd /tmp
